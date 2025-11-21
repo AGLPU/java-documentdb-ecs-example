@@ -3,17 +3,17 @@ package com.palmer.rachelle.javaspringmongodb.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Book")
-public class Book {
+@Document(collection = "user")
+public class User {
 
     @Id
     private String id;
 
     private String title;
 
-    private String author;
+    private String email;
 
-    private String summary;
+    private String name;
 
     public String getId() {
         return id;
@@ -31,19 +31,19 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getName() {
+        return name;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setName(String name) {
+        this.name = name;
     }
 }

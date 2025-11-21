@@ -11,10 +11,10 @@
 </head>
 <body>
 <div class="container my-5">
-  <h2 class="mb-5">New Book</h2>
+  <h2 class="mb-5">New user</h2>
   <div class="row">
     <div class="col-md-6">
-      <form action="#" th:action="@{/add-book}" th:object="${book}" method="post">
+      <form action="#" th:action="@{/user/add-user}" th:object="${user}" method="post">
         <div class="row">
           <div class="form-group col-md-6">
             <label for="title" class="col-form-label">Title</label>
@@ -22,19 +22,19 @@
             <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
           </div>
           <div class="form-group col-md-6">
-            <label for="author" class="col-form-label">Author</label>
-            <input type="text" th:field="*{author}" class="form-control" id="author" placeholder="Author">
-            <span th:if="${#fields.hasErrors('author')}" th:errors="*{email}" class="text-danger"></span>
+            <label for="email" class="col-form-label">Email</label>
+            <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
           </div>
           <div class="form-group col-md-6">
-            <label for="summary" class="col-form-label">Summary</label>
-            <textarea th:field="*{summary}" class="form-control" id="summary" placeholder="Summary" />
-            <span th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}" class="text-danger"></span>
+            <label for="name" class="col-form-label">Name</label>
+            <textarea th:field="*{name}" class="form-control" id="name" placeholder="Name" />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6 mt-5">
-            <input type="submit" class="btn btn-primary" value="Add Book">
+            <input type="submit" class="btn btn-primary" value="Add user">
           </div>
         </div>
       </form>

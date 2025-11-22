@@ -5,36 +5,41 @@ FROM eclipse-temurin:21.0.7_10-jdk AS builder
 
 WORKDIR /app
 
-# Copy Maven descriptor first for efficient caching
+# Copy Maven descriptor first
 COPY pom.xml .
-
-# Copy Maven wraper descriptor so no manual maven installtion is required
 COPY mvnw .
-
-# Copy all maven configuration that are needed by mvnw
 COPY .mvn .mvn
 
-# Download dependencies (cached layer)
 RUN chmod +x mvnw
-
-# This command downloads all Maven dependencies before copying your source code.
 RUN ./mvnw dependency:go-offline -B
 
-# Copy source and package
+# Copy project source
 COPY src src
+
+# Build Spring Boot JAR
 RUN ./mvnw clean package -DskipTests
 
+
 # ============================
-# Stage 2 – Create Runtime Image
+# Stage 2 – Runtime Image
 # ============================
 FROM eclipse-temurin:21.0.7_10-jre
 
 WORKDIR /app
 
-# Copy fat JAR from builder stage
+# Add DocumentDB SSL certificate
+ADD doc-dbCerts.pem /app/doc-dbCerts.pem
+
+# Import into Java truststore
+RUN /opt/java/openjdk/bin/keytool -importcert \
+    -file /app/doc-dbCerts.pem \
+    -alias docdb \
+    -keystore /opt/java/openjdk/lib/security/cacerts \
+    -storepass changeit -noprompt
+
+# Copy JAR from build stage
 COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-# Run the Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar"]

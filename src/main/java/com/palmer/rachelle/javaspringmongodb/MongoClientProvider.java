@@ -43,7 +43,6 @@ public class MongoClientProvider {
         ConnectionString connString = new ConnectionString(
             "mongodb://localhost:27017/?tls=true&retryWrites=false"
         );
-
         MongoClientSettings settings = MongoClientSettings.builder()
                 .credential(credential)
             .applyConnectionString(connString)

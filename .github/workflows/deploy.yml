@@ -24,10 +24,20 @@ jobs:
 
       - name: Build, Tag & Push Image
         run: |
-          IMAGE="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest"
+          SHA=${{ github.sha }}
+          BASE="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}"
           docker build -t myapp .
-          docker tag myapp:latest $IMAGE
-          docker push $IMAGE
+          docker tag myapp:latest $BASE:$SHA
+          docker tag myapp:latest $BASE:latest
+
+          echo "Pushing the following images:"
+          echo "$BASE:$SHA"
+          echo "$BASE:latest"
+          
+          docker push $BASE:$SHA
+          docker push $BASE:latest
+          
+          #echo "IMAGE_TAG=$SHA" >> $GITHUB_ENV
 
       - name: Deploy to ECS
         run: |

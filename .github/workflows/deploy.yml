@@ -24,17 +24,24 @@ jobs:
 
       - name: Build, Tag & Push Image
         run: |
-          SHA=${{ github.sha }}
+          SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           BASE="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}"
+          TS=$(date +'%Y%m%d-%H%M')
+          BUILD=${{ github.run_number }}
+          
           docker build -t myapp .
+          
           docker tag myapp:latest $BASE:$SHA
           docker tag myapp:latest $BASE:latest
+          docker tag myapp:latest $BASE:$BUILD
 
           echo "Pushing the following images:"
           echo "$BASE:$SHA"
+          echo "$BASE:$BUILD"
           echo "$BASE:latest"
           
           docker push $BASE:$SHA
+          docker push $BASE:$BUILD
           docker push $BASE:latest
           
           #echo "IMAGE_TAG=$SHA" >> $GITHUB_ENV

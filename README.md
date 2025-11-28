@@ -7,3 +7,6 @@
 📌 SSL HandShake errors -- To show what certificates is being expected at host:port ** ==> openssl s_client -connect localhost:27017 -showcerts output: subject=CN=docdb-2025-11-17-15-45-22.crweyyisomb8.ap-south-1.docdb.amazonaws.com, OU=RDS, O=Amazon.com, L=Seattle, ST=Washington, C=US issuer=C=US, O=Amazon Web Services, Inc., OU=Amazon RDS, ST=WA, CN=Amazon RDS ap-south-1 Subordinate CA RSA2048 G1.A.3, L=Seattle
 
 📌 Copy start and end block from above and paste it "doc-dbIntermidiate.pem" file and execute below: ** ==> keytool -import -trustcacerts -alias docdbCA -file doc-dbIntermidiate.pem -keystore C:\Users\aman.goel1\docdb-truststore.jks -storepass changeit
+
+📌 aman.goel1@IHSMARKIT-fYyFC MINGW64 /c/Learning/Projects/java-spring-apps (develop) $ mvn wrapper:wrapper
+

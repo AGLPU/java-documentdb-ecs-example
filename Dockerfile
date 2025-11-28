@@ -1,7 +1,7 @@
 # ============================
 # Stage 1 – Build the JAR file
 # ============================
-FROM eclipse-temurin:21.0.7_10-jdk AS builder
+FROM eclipse-temurin:21-jdk AS builder
 
 WORKDIR /app
 
@@ -23,7 +23,7 @@ RUN ./mvnw clean package -DskipTests
 # ============================
 # Stage 2 – Runtime Image
 # ============================
-FROM eclipse-temurin:21.0.7_10-jre
+FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 

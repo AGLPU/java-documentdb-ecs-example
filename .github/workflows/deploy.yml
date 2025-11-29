@@ -33,15 +33,15 @@ jobs:
           
           docker tag myapp:latest $BASE:$SHA
           docker tag myapp:latest $BASE:latest
-          docker tag myapp:latest $BASE:$BUILD
+          docker tag myapp:latest $BASE:build-$BUILD
 
           echo "Pushing the following images:"
           echo "$BASE:$SHA"
-          echo "$BASE:$BUILD"
+          echo "$BASE:build-$BUILD"
           echo "$BASE:latest"
           
           docker push $BASE:$SHA
-          docker push $BASE:$BUILD
+          docker push $BASE:build-$BUILD
           docker push $BASE:latest
           
           #echo "IMAGE_TAG=$SHA" >> $GITHUB_ENV

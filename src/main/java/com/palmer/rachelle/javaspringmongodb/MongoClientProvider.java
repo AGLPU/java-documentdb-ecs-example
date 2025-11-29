@@ -17,7 +17,7 @@ public class MongoClientProvider {
 
         MongoCredential credential = MongoCredential.createCredential(
                 "aglpu",
-                "BookStore",
+                "admin",
                 decodedPassword.toCharArray()
         );
 

@@ -224,6 +224,7 @@ Resources:
     Type: AWS::ECS::Service
     DependsOn: ALBListener
     Properties:
+      ServiceName: java-mongo-example
       Cluster: !Ref ECSCluster
       LaunchType: FARGATE
       DesiredCount: 1

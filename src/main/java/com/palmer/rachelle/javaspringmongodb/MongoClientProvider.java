@@ -31,7 +31,7 @@ public class MongoClientProvider {
 
         // Build the MongoClientSettings
         ConnectionString connString = new ConnectionString(
-                System.getenv(mongoUri)
+                mongoUri
          );
         log.info("connString:{}",connString);
 

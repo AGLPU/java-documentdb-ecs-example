@@ -13,17 +13,21 @@ public class MongoClientProvider {
     public static MongoClient createSslClient() throws Exception {
 
         String base64 = "PjNIcllwcG0+Uk9bMTlkZFdiUls1WExwM01wLQ==";
-        String decodedPassword = new String(Base64.getDecoder().decode(base64));
+       // String decodedPassword = new String(Base64.getDecoder().decode(base64));
+        var mongoUri=System.getenv("MONGO_URI");
+        var password=System.getenv("MONGO_PASSWORD");
+        var dbNme=System.getenv("MONGO_DBNAME");
+
 
         MongoCredential credential = MongoCredential.createCredential(
                 "aglpu",
-                "admin",
-                decodedPassword.toCharArray()
+                dbNme,
+                password.toCharArray()
         );
 
         // Build the MongoClientSettings
         ConnectionString connString = new ConnectionString(
-                System.getenv("MONGO_URI")
+                System.getenv(mongoUri)
          );
         MongoClientSettings settings = MongoClientSettings.builder()
                 .credential(credential)

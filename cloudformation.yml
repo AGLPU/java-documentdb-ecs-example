@@ -38,6 +38,15 @@ Parameters:
     Type: String
     Default: docdb-2025-11-17-15-45-22.cluster-crweyyisomb8.ap-south-1.docdb.amazonaws.com  
 
+  dbName:
+    Type: String
+    Default: BookStore
+
+  dbPassword:
+    Type: String
+    Default: "HFrJrRXftQ.IWz5|:HF(5v)|pm_:"
+
+
 Resources:
 
   #########################################################
@@ -208,8 +217,12 @@ Resources:
             - ContainerPort: !Ref ContainerPort
           Environment:
           - Name: MONGO_URI
-            Value: !Sub "mongodb://${DocDBEndpoint}:27017/BookStore/?tls=true&retryWrites=false&authSource=admin"
-      
+            Value: !Sub "mongodb://${DocDBEndpoint}:27017/BookStore?tls=true&retryWrites=false&authSource=admin"
+          - Name: MONGO_DBNAME
+            Value: !Ref dbName
+          - Name: MONGO_PASSWORD
+            Value: !Ref dbPassword
+
           LogConfiguration:
             LogDriver: awslogs
             Options:

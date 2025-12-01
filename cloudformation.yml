@@ -217,7 +217,7 @@ Resources:
             - ContainerPort: !Ref ContainerPort
           Environment:
           - Name: MONGO_URI
-            Value: !Sub "mongodb://${DocDBEndpoint}:27017/BookStore?tls=true&retryWrites=false&authSource=admin"
+            Value: !Sub "mongodb://${DocDBEndpoint}:27017/BookStore?tls=true&retryWrites=false"
           - Name: MONGO_DBNAME
             Value: !Ref dbName
           - Name: MONGO_PASSWORD
